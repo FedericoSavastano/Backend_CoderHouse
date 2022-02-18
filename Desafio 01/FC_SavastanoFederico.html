@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funciones Constructoras</title>
+
+</head>
+
+<body>
+    <h1>Desafio 1: Funciones Constructoras</h1>
+    <h2>Federico Savastano</h2>
+
+    <script>
+
+        const Usuario = function (nombre, apellido, libros, mascotas) {
+            this.nombre = nombre,
+                this.apellido = apellido,
+                this.libros = libros,
+                this.mascotas = mascotas
+        }
+
+        Usuario.prototype.getFullName = function () {
+            return `${this.nombre} ${this.apellido}`
+        }
+
+        Usuario.prototype.addMascota = function (nuevaMascota) {
+            this.mascotas.push(nuevaMascota);
+        }
+
+        Usuario.prototype.getMascotas = function () {
+            return this.mascotas;
+        }
+
+        Usuario.prototype.addBook = function (book, autor) {
+            this.libros.push({ nombre: book, autor: autor })
+        }
+
+        Usuario.prototype.getBooks = function () {
+            let librosTitulo = []
+            this.libros.forEach((libro) => librosTitulo.push(libro.nombre));
+            return librosTitulo;
+
+        }
+
+
+        const marty = new Usuario("Marty", "McFly", [{ nombre: "Como viajar en el tiempo", autor: "Doc Brown" }], ["gato"]);
+
+        console.log(marty);
+
+        console.log(marty.getFullName())
+
+        marty.addMascota("perro");
+
+        console.log(marty.getMascotas());
+
+        marty.addBook("Aprenda a hacerse rico", "Biff Tannen");
+
+        console.log(marty.getBooks());
+
+        console.log(marty);
+
+    </script>
+</body>
+
+</html>

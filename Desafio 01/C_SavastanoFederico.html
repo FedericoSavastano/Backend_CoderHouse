@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clases ES6</title>
+
+</head>
+
+<body>
+    <h1>Desafio 1: Clases ES6</h1>
+    <h2>Federico Savastano</h2>
+
+    <script>
+
+        class Usuario {
+            constructor(nombre, apellido, libros, mascotas) {
+                this.nombre = nombre,
+                    this.apellido = apellido,
+                    this.libros = libros,
+                    this.mascotas = mascotas
+            }
+
+            getFullName() {
+                return `${this.nombre} ${this.apellido}`
+            }
+
+            addMascota(nuevaMascota) {
+                this.mascotas.push(nuevaMascota);
+            }
+
+            getMascotas() {
+                return this.mascotas;
+            }
+
+            addBook(book, autor) {
+                this.libros.push({ nombre: book, autor: autor })
+            }
+
+            getBooks() {
+                let librosTitulo = []
+                this.libros.forEach((libro) => librosTitulo.push(libro.nombre));
+                return librosTitulo;
+
+            }
+        }
+
+
+
+        const doc = new Usuario("Doc", "Brown", [{ nombre: "Teoria del Tiempo", autor: "Stephen Hawkins" }], ["perro"]);
+
+        console.log(doc);
+
+        console.log(doc.getFullName())
+
+        doc.addMascota("mono");
+
+        console.log(doc.getMascotas());
+
+        doc.addBook("Principios de Física", "Isaac Newton");
+
+        console.log(doc.getBooks());
+
+        console.log(doc);
+
+    </script>
+</body>
+
+</html>
