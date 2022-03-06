@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Observables 1</title>
+</head>
+
+<body>
+    <h1>Desafio 04: Observables 1</h1>
+    <input id="enteredText"> <span id="mirroredText"></span>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/8.0.0-alpha.2/rxjs.umd.min.js"
+        integrity="sha512-OqhcXPOUizQsMGqilNNtN3bU3Sy9ELHyNm/WyjtlyJ/2/Wpl5PjqkvX1eAE5q2X74z2mnCqv4Lcvf7lqLOFb5Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+
+        const { fromEvent } = rxjs;
+
+        const enteredText = document.getElementById("enteredText");
+        const mirroredText = document.getElementById("mirroredText");
+
+        const completeRegExp = /complete/i;
+        const errorRegExp = /error/i;
+
+        const enteredTextObservable$ = fromEvent(enteredText, 'input')
+
+
+        const subscription = enteredTextObservable$.subscribe(
+            (value) => {
+                let text = value.target.value;
+                mirroredText.innerHTML = text.split("").reverse().join("");
+                if (completeRegExp.test(text)) {
+                    console.log("El usuario ingresó 'complete' ");
+                    subscription.complete(), end();
+                }
+                if (errorRegExp.test(text)) {
+                    // console.error("El usuario ingresó 'error' ")
+                    subscription.error("El usuario ingresó 'error'"), end();
+                }
+            }
+        )
+
+        setTimeout(() => { subscription.unsubscribe(), end() }, 30000);
+
+        const end = () => {
+            enteredText.disabled = true;
+            enteredText.value = ""
+            mirroredText.innerHTML = "";
+        }
+
+    </script>
+</body>
+
+</html>
